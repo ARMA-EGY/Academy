@@ -100,6 +100,13 @@ class FrontController extends Controller
         return view('front.signin', [
         ]);      
     }
+    public function profile()
+    { 
+        $user        = auth()->user();
+        return view('front.profile', [
+            'user'    => $user,
+        ]);      
+    }
     
 
 

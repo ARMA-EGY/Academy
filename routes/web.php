@@ -28,6 +28,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/courses', 'FrontController@courses')->name('courses');
     Route::get('/course/{id}', 'FrontController@courseDetails')->name('course.details');
     Route::get('/contact', 'FrontController@contact')->name('contact');
+    Route::get('/profile', 'FrontController@profile')->name('userprofile');
     Route::get('/signin', 'FrontController@signin')->name('signin');
 
     Route::post('/message', 'FrontController@message')->name('message');

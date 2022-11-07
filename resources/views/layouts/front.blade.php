@@ -48,7 +48,7 @@
 					<li><a href="{{route('courses')}}">Courses</a></li>
 					<li><a href="{{route('contact')}}">Contact</a></li>
 					@if(Auth::check())
-						<li><a href="#">{{Auth::user()->name}}</a></li>
+						<li><a href="{{route('userprofile')}}">{{Auth::user()->name}}</a></li>
 						<a href="{{ route('logout') }}" onclick="event.preventDefault();
 						document.getElementById('logout-form').submit();">
 							<i class="ni ni-user-run"></i>

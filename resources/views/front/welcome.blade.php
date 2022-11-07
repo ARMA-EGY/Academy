@@ -43,7 +43,7 @@
 					@foreach ($categories as $category)
 						<article class="category">
 							<span class="">
-								<img src="{{asset($category->image)}}" style="border-radius: 10px;">
+								<img src="{{asset($category->image)}}" loading="lazy" style="border-radius: 10px;">
 							</span>
 							<h5>{{$category->name}}</h5>
 							<p>{{$category->description}}</p>     

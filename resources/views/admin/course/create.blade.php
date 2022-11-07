@@ -128,7 +128,7 @@
                             <div class="row box" id="Video">
                                 <div class="form-group col-md-12 mb-2 text-left">
                                     <label class="font-weight-bold text-uppercase">Upload Video</label>
-                                    <input class="btn-info form-control form-control-sm" type="file" accept="video/*" name="file" />
+                                    <input class="btn-info form-control form-control-sm" type="file" accept="video/*" multiple name="file" />
                                 </div>
 
                                 @isset($item)

@@ -23,7 +23,18 @@
                 </div>  
             </div>
 
-            <div class="container text-center" style="display: flex; max-width:400px; height:400px;">
+            <div class="container text-center" style="display: flex; max-width:400px; height:400px;position: relative;">
+                <div id="layout" style="
+                position: absolute;
+                background-color: rgba(0,0,0,0.5);
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            ">
+                    <a href="#" class="btn btn-primary mb-2"> Subscribe Now</a>
+                </div>
                 @if ($item->type == 'Video')
                     <video style="margin: auto; width:100%" controls>
                         <source src="{{asset($item->file)}}" type="video/mp4">
