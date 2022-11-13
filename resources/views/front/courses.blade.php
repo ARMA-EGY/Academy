@@ -19,7 +19,7 @@
 				@foreach ($courses as $course)
                     <article class="course">
                         <div class="course__image">
-                            <img src="{{asset($course->image)}}">
+                            <img src="{{asset($course->image)}}" height="250">
                         </div>          
                         <div class="course__info">
                             <h4>{{$course->name}}</h4>

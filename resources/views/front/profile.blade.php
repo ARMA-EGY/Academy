@@ -5,10 +5,12 @@
 @endsection
 
 @section('content')
-    
+
 	<!-- Start of Achievements section
 		============================================= -->
 	<section class="about__achievements">
+        <div>
+        <div>
 		<div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-5 border-right">

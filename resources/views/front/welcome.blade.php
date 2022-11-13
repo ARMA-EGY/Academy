@@ -12,8 +12,7 @@
 					<h1> Smile for life, Life smiles for you.
 						"تفائلو بالخير تجدوه"</h1>
 					<p> 
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, necessitatibus illum molestias dolorum itaque rem nisi maiores odio tempora maxime.
-					</p>
+						Find the right instructor for you. Choose from many topics, skill levels, and languages. Shop thousands of high-quality on-demand online courses. Start learning today.					</p>
 					<a href="{{route('courses')}}" class="btn btn-primary"> GetStarted</a>
 				</div>
 	
@@ -34,7 +33,7 @@
 				<div class="categories__left">
 					<h1>Categories</h1>
 					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.Quas voluptatum ab in corporis quis molestiae possimus vel temporibus error.Voluptatem cum harum ipsum facilis ducimus veritatis optio,nihil qui provident.
+						Since there are so many different courses to choose from in our General Education categories, we have assigned a letter to each of them so that you can tell which requirement a course meets by looking at the letter at the end of the course number.
 					</p>
 					<a href="{{route('courses')}}" class="btn"> Learn More </a>
 				</div>  
@@ -43,7 +42,7 @@
 					@foreach ($categories as $category)
 						<article class="category">
 							<span class="">
-								<img src="{{asset($category->image)}}" loading="lazy" style="border-radius: 10px;">
+								<img src="{{asset($category->image)}}" loading="lazy" style="border-radius: 10px;" width="200" height="150">
 							</span>
 							<h5>{{$category->name}}</h5>
 							<p>{{$category->description}}</p>     
@@ -63,7 +62,7 @@
 				@foreach ($courses as $course)
 					<article class="course">
 						<div class="course__image">
-							<img src="{{asset($course->image)}}">
+							<img src="{{asset($course->image)}}" height="250">
 						</div>          
 						<div class="course__info">
 							<h4>{{$course->name}}</h4>
