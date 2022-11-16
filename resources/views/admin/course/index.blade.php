@@ -93,6 +93,7 @@
                       </div>
                     </td>
                     <td>
+                      <a data-toggle="tooltip" data-placement="top" href="{{ route('delete-courses', $item->id)}}" class="btn btn-danger btn-sm mx-1 px-3"> <i class="fa fa-trash"></i> </a>
                       <a data-toggle="tooltip" data-placement="top" title="{{__('master.EDIT')}}" href="{{ route('courses.edit', $item->id)}}" class="btn btn-secondary btn-sm mx-1 px-3"> <i class="fa fa-edit"></i> </a>
                     </td>
                   </tr>

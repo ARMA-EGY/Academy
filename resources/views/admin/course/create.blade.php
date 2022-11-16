@@ -154,7 +154,7 @@
                             <div class="my-2 text-left">
                               <small> {!! __('master.IMAGE-INFO') !!} </small> 
                             </div>
-                            <input class="btn-info form-control form-control-sm" type="file" accept="image/*" id="avatar" name="image" multiple="false" />
+                            <input class="btn-info form-control form-control-sm" required type="file" accept="image/*" id="avatar" name="image" multiple="false" />
                         </div>
                     </div>
 
@@ -206,15 +206,20 @@
                 
                 <div class="modal-body" id="upload_body">
                     
-                    <div class="form-row">
+                    <div class="">
     
                         <div class="form-group col-md-12">
-                        <label for="" class="font-weight-bold"><i class="fa fa-image"></i> Upload : </label>
+                        <label for="" class="font-weight-bold"> Upload course : </label>
                         </div>
-    
-                        <div class="bararea m-2">
+                        
+                        {{-- <div class="bararea m-2">
                             <div class="bar"></div>
-                        </div>
+                        </div> --}}
+                        <div class="form-group col-md-12 text-center">
+                            <div class="spinner-border" role="status">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div>
     
                         <div class="percent"></div>
                         <div class="status"></div> 
@@ -300,24 +305,24 @@
         {
             $(document).ready(function()
             {
-                var bar     = $('.bar');
-                var percent = $('.percent');
+                // var bar     = $('.bar');
+                // var percent = $('.percent');
                 var status  = $('.status');
 
                 $('.upload_form').ajaxForm({
                     beforeSend: function() 
                     {
-                        var percentVal = '0%';
-                        bar.width(percentVal)
-                        percent.html(percentVal);
+                        // var percentVal = '0%';
+                        // bar.width(percentVal)
+                        // percent.html(percentVal);
                         $('#upload_modal').modal('show');
                     },
-                    uploadProgress: function(event, position, total, percentComplete) 
-                    {
-                        var percentVal = percentComplete + '%';
-                        bar.width(percentVal)
-                        percent.html(percentVal);
-                    },
+                    // uploadProgress: function(event, position, total, percentComplete) 
+                    // {
+                    //     var percentVal = percentComplete + '%';
+                    //     bar.width(percentVal)
+                    //     percent.html(percentVal);
+                    // },
                     success : function(response)
                     {
                         $('#upload_modal').modal('hide');

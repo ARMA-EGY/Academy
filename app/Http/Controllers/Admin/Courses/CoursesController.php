@@ -185,7 +185,13 @@ class CoursesController extends Controller
         $item->save();
     }
 
+ //-------------- Disable Data  ---------------\\
 
+ public function delete(Request $request)
+ {
+     $item = Courses::where('id', $request->id)->first();
+     $item->delete();
+ }
     //-------------- Get Active Data ---------------\\
 
     public function requestes()
