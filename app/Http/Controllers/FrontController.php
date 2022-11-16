@@ -102,10 +102,10 @@ class FrontController extends Controller
     }
     public function profile()
     { 
-        $user        = auth()->user();
+        $user= auth()->user();
         return view('front.profile', [
-            'user'    => $user,
-        ]);      
+            'user'=> $user,
+        ]);
     }
     
 
