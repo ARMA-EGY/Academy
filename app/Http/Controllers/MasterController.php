@@ -21,6 +21,7 @@ use App\Models\Categories;
 use App\Models\Courses;
 use App\Models\CoursesRequest;
 use App\Models\Team;
+use App\Models\Order;
 
 use App\Models\Message;
 use App\Models\Social;
@@ -64,6 +65,9 @@ class MasterController extends Controller
             'courses_count'         => Courses::where('disable', 0)->count(),
             'messages_count'        => Message::all()->count(),
             'subscribers_count'     => Subscriber::all()->count(),
+            'orders_count'          => Order::where('status', 1)->count(),
+            'categories_count'      => Categories::where('disable', 0)->count(),
+            'customers_count'       => User::where('role', 'Customer')->count(),
         ]);
     }
 

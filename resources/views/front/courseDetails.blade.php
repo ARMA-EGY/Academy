@@ -23,13 +23,15 @@
         </div>
         {{-- promo vedio --}}
         <div class="container text-center" style="display: flex; max-width:400px; height:350px;position: relative;">
-            <div class="layout">
-                @if (auth()->user())
-                    <a href="#" class="btn btn-primary mb-2"> Subscribe Now</a>
-                @else
-                    <a href="{{ route('signin') }}" class="btn btn-primary mb-2"> Subscribe Now</a>
-                @endif
-            </div>
+            @if ($subscribed == 0)
+                <div class="layout">
+                    @if (auth()->user())
+                        <a href="#" class="btn btn-primary mb-2"> Subscribe Now</a>
+                    @else
+                        <a href="{{ route('signin') }}" class="btn btn-primary mb-2"> Subscribe Now</a>
+                    @endif
+                </div>
+            @endif
             @if ($item->type == 'Video')
                 <video style="margin: 0 auto; width:100%" controls controlsList="nodownload">
                     <source src="{{ asset($item->file) }}" type="video/mp4">
@@ -37,82 +39,30 @@
                 </video>
             @else
                 <iframe width="560" height="315" style="width:100%"
-                    src="https://www.youtube.com/embed/{{ $endofurl }}" title="YouTube video player" frameborder="0"
+                    src="https://www.youtube.com/embed/{{$endofurl}}" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
             @endif
         </div>
         {{-- all vedio --}}
 
+        @if ($subscribed == 1)
         <div class="container text-center" style="display: flex;position: relative;">
             <div class="allvedios">
-
-                <div class="one-vedios">
-
-                    <div class="layout">
-                        @if (auth()->user())
-                            <button class=" modal-toggle btn btn-primary mb-2"> Subscribe Now</button>
-                        @else
-                            <a href="{{ route('signin') }}" class="btn btn-primary mb-2"> Subscribe Now</a>
-                        @endif
-                    </div>
-                    @if ($item->type == 'Video')
-                        <video style="margin: auto; width:100%" controls controlsList="nodownload">
-                            <source src="{{ asset($item->file) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    @else
-                        <iframe width="560" height="315" style="width:100%"
-                            src="https://www.youtube.com/embed/{{ $endofurl }}" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    @endif
-                </div>
-                <div class="one-vedios">
-                    @if ($item->type == 'Video')
-                        <video style="margin: auto; width:100%" controls controlsList="nodownload">
-                            <source src="{{ asset($item->file) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    @else
-                        <iframe width="560" height="315" style="width:100%"
-                            src="https://www.youtube.com/embed/{{ $endofurl }}" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    @endif
-                </div>
-                <div class="one-vedios">
-                    @if ($item->type == 'Video')
-                        <video style="margin: auto; width:100%" controls controlsList="nodownload">
-                            <source src="{{ asset($item->file) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    @else
-                        <iframe width="560" height="315" style="width:100%"
-                            src="https://www.youtube.com/embed/{{ $endofurl }}" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    @endif
-                </div>
-                <div class="one-vedios">
-                    @if ($item->type == 'Video')
-                        <video style="margin: auto; width:100%" controls controlsList="nodownload">
-                            <source src="{{ asset($item->file) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    @else
-                        <iframe width="560" height="315" style="width:100%"
-                            src="https://www.youtube.com/embed/{{ $endofurl }}" title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                    @endif
-                </div>
+                @if (isset($item->videos))
+                    @foreach ($item->videos as $video)
+                        <div class="one-vedios">
+                            <video style="margin: auto; width:100%" controls controlsList="nodownload">
+                                <source src="{{asset($video->path)}}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
+        @endif
+
     </section>
     <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         width="768" height="800" viewBox="0 0 768 800">
@@ -163,7 +113,7 @@
                     },
                     purchase_units: [{
                         amount: {
-                            value: '{{ $item->price }}'
+                            value: '{{$item->price}}'
                         }
                     }]
                 });

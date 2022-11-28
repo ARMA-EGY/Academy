@@ -103,7 +103,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6 mb-2 text-left">
-                                    <label class="font-weight-bold text-uppercase">Video Type </label>
+                                    <label class="font-weight-bold text-uppercase">Promo Video Type </label>
                                     <select class="form-control" id="type" name="type" required>
                                         <option value="Youtube" @if (isset($item))  @if ($item->type == 'Youtube' ) selected @endif @endif>Youtube Link</option>
                                         <option value="Video" @if (isset($item))  @if ($item->type == 'Video' ) selected @endif @endif>Upload Video</option>
@@ -127,7 +127,7 @@
 
                             <div class="row box" id="Video">
                                 <div class="form-group col-md-12 mb-2 text-left">
-                                    <label class="font-weight-bold text-uppercase">Upload Video</label>
+                                    <label class="font-weight-bold text-uppercase">Upload Promo Video</label>
                                     <input class="btn-info form-control form-control-sm" type="file" accept="video/*" multiple name="file" />
                                 </div>
 
@@ -158,6 +158,72 @@
                         </div>
                     </div>
 
+                </div>
+
+                <!-- Videos -->
+                <div class="col-xl-12">
+                    <div class="card card-defualt">
+                        <div class="card-header"><i class="fa fa-video"></i> Videos </div>
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <div class="text-right">
+                                    <a class="btn btn-sm btn-primary text-white add_image"><i class="fa fa-plus"></i></a>
+                                </div>
+
+                                <div id="append_images">
+
+                                    @if (isset($item->videos))
+                                        <div class="row">
+                                            @foreach ($item->videos as $video)
+                                                <div class="parent col-md-3 text-center m-2">
+                                                    <div class="row image-card">
+
+                                                        <div class="form-group col-md-12">
+                                                            <iframe src="{{asset($video->path)}}" frameborder="0" width="100%" style="width: 100%;min-height: 300px;"></iframe>
+                                                        </div>
+
+                                                        <div class="form-group col-md-6 text-center">
+                                                            <label class="text-sm">{{$video->name}}</label>
+                                                        </div>
+
+                                                        <div class="form-group col-md-6 m-auto text-center">
+                                                            <a class="btn btn-sm btn-danger remove_item text-white"
+                                                                data-id="{{ $video->id }}"
+                                                                data-url="{{ route('course.remove.video') }}"><i
+                                                                    class="fa fa-trash "></i> </a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="form-row">
+                                            <div class="form-group col-md-5 mb-2 text-left">
+                                                <label class="text-sm"
+                                                    for="video_name">Video Name</label>
+                                                <input id="video_name" type="text" name="video_name[]"
+                                                    class="form-control form-control-sm"
+                                                    placeholder="Name"
+                                                    value="" required>
+                                            </div>
+
+                                            <div class="form-group col-md-5 mb-1 text-left">
+                                                <label class="text-sm"> Video File</label>
+                                                <input type="file" accept="video/*"
+                                                    class="form-control form-control-sm" name="video_file[]" required>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-xl-12">
@@ -248,7 +314,8 @@
 
         function readURL(input) 
         {
-            if (input.files && input.files[0]) {
+            if (input.files && input.files[0]) 
+            {
                 var reader = new FileReader();
                 
                 reader.onload = function (e) 
@@ -331,5 +398,27 @@
                 });
             }); 
         });
+
+        $('.add_image').click(function() 
+        {
+            $("#append_images").append(
+                '<div class="form-row parent"><div class="form-group col-md-5 mb-2 text-left"><label class="text-sm">Video Name</label><input type="text" name="video_name[]"class="form-control form-control-sm"placeholder="Name"value="" required></div><div class="form-group col-md-5 mb-1 text-left"><label class="text-sm">Video File</label class="text-sm"><input type="file" accept="video/*" class="form-control form-control-sm" name="video_file[]" required></div><div class="form-group col-md-2 mt-4 pt-2"><a class="btn btn-sm btn-danger remove text-white"><i class="fa fa-trash "></i></a></div></div>'
+                );
+        });
+
+        $(document).on("click", ".choose_selected", function() {
+        $('.selected').val(0);
+        $(this).next('.selected').val(1);
+        });
+
+        $(document).on("click", ".remove", function() {
+        $(this).parents('.parent').remove();
+        });
+
+        $(document).on("click", ".remove3", function() {
+        var item = '.' + $(this).attr('data-class');
+        $(item).remove();
+        });
+
     </script>
 @endsection
