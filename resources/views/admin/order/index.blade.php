@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-lg-6 col-5 text-right">
-              {{-- <a href="{{ route('order.create')}}" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> New Subscription</a> --}}
+              <a href="{{ route('order.create')}}" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> New Subscription</a>
             </div>
 
             @if(session()->has('success'))	
@@ -84,7 +84,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td><b>{{\Carbon\Carbon::parse($item->created_at)->format('Y-m-d')}}</b></td>
                     <td>{{$item->customer->name}}</td>
-                    <td>{{$item->course->name}}</td>
+                    <td>{{ !empty($item->course) ? $item->course->name:'-' }}</td>
                     <td>{{$item->price}}</td>
                   </tr>
 

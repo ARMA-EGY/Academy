@@ -193,4 +193,30 @@ class FrontController extends Controller
         }
     }
 
+    //-------------- Add New Subscription ---------------\\
+    public function addSubscribe(Request $request)
+    {
+        $order =  Order::create([
+            'customer_id'   => $request->customer_id,
+            'course_id'     => $request->course_id,
+            'price'         => $request->price,
+            'status'        => 1,
+        ]);
+
+        if($order)
+        {
+            return response()->json([
+                'status' => 'true',
+                'msg' => 'success'
+            ]) ;
+        }
+        else
+        {
+            return response()->json([
+                'status' => 'false',
+                'msg' => 'error'
+            ]) ;
+        }
+    }
+
 }

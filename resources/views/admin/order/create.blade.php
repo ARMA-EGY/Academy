@@ -16,8 +16,8 @@
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="{{route('home')}}"><i class="fas fa-home"></i></a></li>
                   <li class="breadcrumb-item"><a href="{{route('home')}}">Dashboard</a></li>
-                  <li class="breadcrumb-item"><a href="{{route('faq.index')}}">FAQs</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">{{ isset($item) ? 'Edit FAQ' : 'Add New FAQ' }}</li>
+                  <li class="breadcrumb-item"><a href="{{route('order.index')}}">Subscriptions</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ isset($item) ? 'Edit FAQ' : 'Add New Subscription' }}</li>
                 </ol>
               </nav>
             </div>
@@ -33,7 +33,7 @@
     <!-- Page content -->
     <div class="container-fluid mt--6">
 
-        <form action="{{ isset($item) ? route('faq.update', $item->id) : route('faq.store')  }}" method="post" enctype="multipart/form-data">
+        <form action="{{ isset($item) ? route('order.update', $item->id) : route('order.store')  }}" method="post" enctype="multipart/form-data">
             @csrf
 
             @if (isset($item))
@@ -41,53 +41,65 @@
             @endif
 
             <div class="row justify-content-center">
-
-                <div class="col-xl-10">
-
+                <div class="col-xl-12">
                     <div class="card card-defualt">
                         <div class="card-header"><i class="fa fa-info-circle"></i> Information </div>
                         <div class="card-body">
 
                             <div class="row">
 
-                                <!--=================  Question  =================-->
-                                <div class="form-group col-md-12 mb-2">
-                                    <label for="question">Question</label>
-                                    <input id="question" type="text" name="question" class="@error('question') is-invalid @enderror form-control" value="{{ isset($item) ? $item->question : old('question') }}" required>
+                                <!--=================  Courses  =================-->
+                                <div class="form-group col-md-5 mb-2 text-left">
+                                    <label class="font-weight-bold text-uppercase">Course</label>
+                                    <select id="course" class="@error('course_id') is-invalid @enderror form-control selectpicker" name="course_id" data-live-search="true" required>
+                                        <option value="">Select</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{$course->id}}" @if (isset($item))  @if ($item->course_id == $course->id ) selected @endif @endif data-price="{{$course->price}}">{{$course->name}}</option>
+                                        @endforeach
+                                    </select>
                                 
-                                    @error('question')
+                                    @error('course_id')
                                         <div>
                                             <span class="text-danger">{{ $message }}</span>
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
 
-                            <hr class="my-2">
-
-                            <div class="row">
-
-                                <!--=================  Answer =================-->
-                                <div class="form-group col-md-12 mb-2">
-                                    <label for="answer">Answer</label>
-                                    <textarea id="answer" class="form-control" name="answer" rows="5" required>{{ isset($item) ? $item->answer : old('answer') }}</textarea>
-                                        @error('answer')
-                                            <div>
-                                                <span class="text-danger">{{ $message }}</span>
-                                            </div>
-                                        @enderror
+                                <!--=================  Customer  =================-->
+                                <div class="form-group col-md-4 mb-2 text-left">
+                                    <label class="font-weight-bold text-uppercase">Customer</label>
+                                    <select class="@error('customer_id') is-invalid @enderror form-control selectpicker" name="customer_id" data-live-search="true" required>
+                                        <option value="">Select</option>
+                                        @foreach ($customers as $customer)
+                                            <option value="{{$customer->id}}" @if (isset($item))  @if ($item->customer_id == $customer->id ) selected @endif @endif>{{$customer->name}}</option>
+                                        @endforeach
+                                    </select>
+                                
+                                    @error('customer_id')
+                                        <div>
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
+                                </div>
+                
+                                <!--=================  Price  =================-->
+                                <div class="form-group col-md-3 mb-2 text-left">
+                                    <label class="font-weight-bold text-uppercase">Price </label>
+                                    <input type="number" id="price" name="price" class="@error('price') is-invalid @enderror form-control" placeholder="0.00" value="{{ isset($item) ? $item->price : old('price') }}" required>
+                                
+                                    @error('price')
+                                        <div>
+                                            <span class="text-danger">{{ $message }}</span>
+                                        </div>
+                                    @enderror
                 
                                 </div>
 
-                            </div>  
-
-
-                                
+                            </div> 
+                            
                         </div>
                     </div>
-                    
                 </div>
-
             </div>
 
             <div class="card card-defualt">
@@ -109,31 +121,11 @@
 
 
 @section('script')
-  <script src="https://cdn.tiny.cloud/1/mq6umcdg6y938v1c32lokocdpgrgp5g2yl794h4y1braa6j6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
   <script>
-  
-    function readURL(input) 
-    {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            
-            reader.onload = function (e) 
-            {
-                $('.avatar-preview').css('background-image','url('+e.target.result+')');
-            };
-            
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
-    $("#avatar").change(function()
-    {
-        readURL(this);
-    });
-
-    tinymce.init({
-        selector:'textarea.content',
-        plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-        toolbar: 'undo redo | bold italic underline strikethrough | fontselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
-      });</script>
+    $(document).on("change","#course", function()
+        {
+            var price = $('#course').find(":selected").attr('data-price');
+            $('#price').val(price);
+        });
+  </script>
 @endsection

@@ -29,9 +29,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/course/{id}', 'FrontController@courseDetails')->name('course.details');
     Route::get('/contact', 'FrontController@contact')->name('contact');
     Route::get('/signin', 'FrontController@signin')->name('signin');
-
+    
     Route::post('/message', 'FrontController@message')->name('message');
     Route::post('/booking', 'FrontController@booking')->name('booking');
+    Route::post('/addSubscribe', 'FrontController@addSubscribe')->name('addSubscribe');
 });
 
 Route::get('/admin', function () {return redirect('/login');});

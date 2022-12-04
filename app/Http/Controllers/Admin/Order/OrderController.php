@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\User;
+use App\Models\Courses;
 use App\Http\Requests\SeoRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -34,10 +36,13 @@ class OrderController extends Controller
      */
     public function create()
     {
+		$courses       = Courses::where('disable',0)->orderBy('id','desc')->get();
+		$customers     = User::where('role','Customer')->orderBy('id','desc')->get();
 
         return view('admin.order.create', [
-            
-            ]);
+            'courses'   => $courses,
+            'customers' => $customers,
+        ]);
     }
 
     /**
@@ -48,6 +53,18 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+
+        $order =  Order::create([
+            'customer_id'   => $request->customer_id,
+            'course_id'     => $request->course_id,
+            'price'         => $request->price,
+            'status'        => 1,
+        ]);
+        
+        $request->session()->flash('success', 'Subscription Added successfully');
+        
+        return redirect(route('order.index'));
     }
 
     /**

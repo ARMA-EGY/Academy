@@ -244,7 +244,7 @@ class MasterController extends Controller
     {
             
         $setting     = Setting::first();
-        $data = $request->only(['project_name', 'phone', 'email', 'address']);
+        $data = $request->only(['project_name', 'phone', 'email', 'address', 'dollar']);
            
         if($request->hasfile('logo'))
         {
