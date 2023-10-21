@@ -123,6 +123,13 @@
                     </div>
                 </li>
                   <li class="nav-item">
+                      <a class="nav-link {{request()->routeIs('order.index') ? 'active' : '' }}" href="{{route('order.index')}}">
+                          <i class="ni ni-bullet-list-67"></i>
+                          <span class="nav-link-text">Subscriptions</span>
+                      </a>
+                  </li>
+
+                  <li class="nav-item">
                       <a class="nav-link {{request()->routeIs('faq.index') ? 'active' : '' }}" href="{{route('faq.index')}}">
                           <i class="fas fa-comment-dots"></i>
                           <span class="nav-link-text">FAQs</span>

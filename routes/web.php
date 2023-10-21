@@ -29,11 +29,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/courses', 'FrontController@courses')->name('courses');
     Route::get('/course/{id}', 'FrontController@courseDetails')->name('course.details');
     Route::get('/contact', 'FrontController@contact')->name('contact');
-    Route::get('/profile', 'FrontController@profile')->name('userprofile');
     Route::get('/signin', 'FrontController@signin')->name('signin');
-
+    
     Route::post('/message', 'FrontController@message')->name('message');
     Route::post('/booking', 'FrontController@booking')->name('booking');
+    Route::post('/addSubscribe', 'FrontController@addSubscribe')->name('addSubscribe');
 });
 
 Route::get('/admin', function () {return redirect('/login');});
@@ -54,6 +54,9 @@ Auth::routes();
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function () 
 {
+
+    Route::get('/userprofile', 'FrontController@profile')->name('userprofile');
+    Route::post('/edituserprofile', 'FrontController@editprofile')->name('editprofile');
     /*
     |--------------------------------------------------------------------------
     | Admin Routes 
@@ -93,11 +96,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         */
         Route::resource('/courses', 'Admin\Courses\CoursesController'); 
         Route::post('/disablecourse', 'Admin\Courses\CoursesController@disable')->name('course-disable');
-        Route::post('/course/{id}', 'Admin\Courses\CoursesController@delete')->name('delete-courses');
+        Route::post('/delete-course', 'Admin\Courses\CoursesController@delete')->name('delete-courses');
         Route::get('/course/requestes', 'Admin\Courses\CoursesController@requestes')->name('course-requestes');
         Route::post('/courserequestaccept', 'Admin\Courses\CoursesController@accept')->name('course-request-accept');
         Route::post('/topMonth', 'Admin\Courses\CoursesController@topMonth')->name('course-top');
-        
+        Route::post('/courseRemoveVideo', 'Admin\Courses\CoursesController@removeVideo')->name('course.remove.video');
+
          /*
         |--------------------------------------------------------------------------
         | qrcodes
@@ -117,6 +121,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         // Route::post('/topMonth', 'Admin\qrCode\QrCodeController@topMonth')->name('qrcode-top');
         
         
+
         /*
         |--------------------------------------------------------------------------
         | Courses Category
@@ -155,6 +160,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         Route::post('/removeFaq', 'Admin\Faq\FaqController@remove')->name('faq.remove');
 
         
+        /*
+        |--------------------------------------------------------------------------
+        | Orders
+        |--------------------------------------------------------------------------
+        */
+        Route::resource('/order', 'Admin\Order\OrderController'); 
 
         /*
         |--------------------------------------------------------------------------

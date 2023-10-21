@@ -74,6 +74,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr class="my-3" />
+
+                            <h6 class="heading-small text-muted font-weight-bold text-left"> 1 Dollar = </h6>
+                            <div class="px-lg-4">
+                                <div class="row">
+                                    <div class="input-group col-12 px-0">
+                                        <input id="dollar" class="form-control" type="number" step="0.01" name="dollar"  value="{{$setting->dollar}}" required>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>

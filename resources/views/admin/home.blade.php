@@ -26,12 +26,33 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">Team Members</h5>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Members</h5>
                         <span class="h2 font-weight-bold mb-0">{{$team_count}}</span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
                           <i class="fas fa-user-friends"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-sm">
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6">
+                <div class="card card-stats">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Categories</h5>
+                        <span class="h2 font-weight-bold mb-0">{{$categories_count}}</span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-warning text-white rounded-circle shadow">
+                          <i class="fas fa-chart-pie"></i>
                         </div>
                       </div>
                     </div>
@@ -89,8 +110,29 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">Subscribers</h5>
-                        <span class="h2 font-weight-bold mb-0">{{$subscribers_count}}</span>
+                        <h5 class="card-title text-uppercase text-muted mb-0">Customers</h5>
+                        <span class="h2 font-weight-bold mb-0">{{$customers_count}}</span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-gradient-dark text-white rounded-circle shadow">
+                          <i class="fa fa-users"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="mt-3 mb-0 text-sm">
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6">
+                <div class="card card-stats">
+                  <!-- Card body -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Subscriptions</h5>
+                        <span class="h2 font-weight-bold mb-0">{{$orders_count}}</span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-light text-white rounded-circle shadow">
@@ -134,12 +176,8 @@
                     <th scope="col">#</th>
                     <th scope="col" class="sort" >{{__('master.NAME')}}</th>
                     <th scope="col" class="sort" >{{__('master.PRICE')}}</th>
-                    <th scope="col" class="sort" >{{__('master.START_DATE')}} </th>
-                    <th scope="col" class="sort" >{{__('master.END_DATE')}}</th>
-                    <th scope="col" class="sort" >{{__('master.STUDENTS_LIMIT')}} </th>
                     <th scope="col" class="sort" >{{__('master.CATEGORY')}}</th>
                     <th scope="col" class="sort" >Type </th>
-                    <th scope="col" class="sort" >Country </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -148,13 +186,9 @@
                     <tr class="parent">
                       <td>{{ $loop->iteration }}</td>
                       <td><strong> {{  $item->name }} </strong></td>
-                      <td><strong> {{ $item->price }} {{__('master.CURRENCY-'.$item->lang)}}</strong></td>
-                      <td><strong> {{ $item->start_date }} </strong></td>
-                      <td><strong> {{ $item->end_date }} </strong></td>
-                      <td><strong> {{ $item->students_limit }} </strong></td>
+                      <td><strong> {{ $item->price }}</strong></td>
                       <td><strong> {{ $item->category->name }} </strong></td>
                       <td><strong> {{ $item->type }} </strong></td>
-                      <td><strong> {{__('master.'.$item->lang)}} </strong></td>
                     </tr>
                   @endforeach
                  

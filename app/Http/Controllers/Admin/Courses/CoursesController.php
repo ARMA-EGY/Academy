@@ -10,7 +10,7 @@ use App\Models\Countries;
 use App\Models\Roles;
 use App\Models\Categories;
 use App\Models\CoursesRequest;
-use App\Models\Meeting;
+use App\Models\Video;
 use App\Http\Requests\Course\AddRequest;
 use App\Http\Requests\Course\UpdateRequest;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Validator;
 use Image;
 use LaravelLocalization;
 use Mail; 
-use App\Mail\meetingInvitation;
 
 class CoursesController extends Controller
 {
@@ -96,10 +95,26 @@ class CoursesController extends Controller
             'link'          => $request->link,
             'file'          => $path,
         ]);
+
+        if ($request->hasFile('video_file')) 
+        {
+            for ($i = 0; $i < count($request->video_file); $i++) 
+            {
+                $file = $request->file('video_file')[$i];
+                $file_name = time().'-'.$file->getClientOriginalName();
+    
+                $destinationPath = base_path().env('PUBLIC_PATH');
+                $path2 = 'uploads/'.$file_name;
+                $file->move(base_path().'/'.env('PUBLIC_PATH').'uploads/', $file_name);
+
+                $videos = Video::create([
+                    'course_id' => $course->id,
+                    'name'      => $request->video_name[$i],
+                    'path'      => $path2,
+                ]);
+            }
+        }
         
-        // $request->session()->flash('success', 'Course Was Added successfully');
-        
-        // return redirect(route('courses.index'));
     }
 
 
@@ -185,13 +200,29 @@ class CoursesController extends Controller
         $item->save();
     }
 
- //-------------- Disable Data  ---------------\\
+    //-------------- Delete Data  ---------------\\
 
- public function delete(Request $request)
- {
-     $item = Courses::where('id', $request->id)->first();
-     $item->delete();
- }
+    public function delete(Request $request)
+    {
+        $item   = Courses::where('id', $request->id)->first();
+        $delete = $item->delete();
+
+        if($delete)
+        {
+            return response()->json([
+                'status' => 'true',
+                'msg' => 'success'
+            ]) ;
+        }
+        else
+        {
+            return response()->json([
+                'status' => 'false',
+                'msg' => 'error'
+            ]) ;
+        }
+    }
+
     //-------------- Get Active Data ---------------\\
 
     public function requestes()
@@ -245,5 +276,15 @@ class CoursesController extends Controller
         $item->save();
     }
 
+
+    //-------------- Remove Video ---------------\\
+    public function removeVideo(Request $request)
+    {
+        $item       = Video::where('id', $request->id)->first();
+        $path       = public_path().'/'.$item->path;
+
+        unlink($path);
+        $item->delete();
+    }
    
 }

@@ -11,6 +11,7 @@ use App\Models\Achievement;
 use App\Models\Team;
 use App\Models\Faq;
 use App\Models\User;
+use App\Models\Order;
 
 
 use App\Models\Message;
@@ -81,9 +82,21 @@ class FrontController extends Controller
             $endofurl = strrchr($item->link, '/');
         }
 
+        $subscribed = 0;
+        $user       = auth()->user();
+        if($user)
+        {
+            $exist       = Order::where('customer_id', $user->id)->where('course_id',$id)->first();
+            if($exist)
+            {
+                $subscribed = 1;
+            }
+        }
+
         return view('front.courseDetails', [
-            'item'      => $item,
-            'endofurl'  => $endofurl,
+            'item'          => $item,
+            'endofurl'      => $endofurl,
+            'subscribed'    => $subscribed,
         ]); 
     }
     
@@ -100,6 +113,8 @@ class FrontController extends Controller
         return view('front.signin', [
         ]);      
     }
+
+    //-------------- Profile Page ---------------\\
     public function profile()
     { 
         $user= auth()->user();
@@ -107,7 +122,6 @@ class FrontController extends Controller
             'user'=> $user,
         ]);
     }
-    
 
 
 /*
@@ -117,7 +131,6 @@ class FrontController extends Controller
 */
 
     //-------------- Messages ---------------\\
-
     public function message(Request $request)
     {
         $message1 =  Message::create([
@@ -164,5 +177,56 @@ class FrontController extends Controller
         ]); 
     }
     
+
+    //-------------- Edit User Info ---------------\\
+    public function editprofile(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+
+        $data = $request->only(['name', 'email', 'phone', 'description']);
+
+        $user->update($data);
+
+        if($user)
+        {
+            return response()->json([
+                'status' => 'true',
+                'msg' => 'success'
+            ]) ;
+        }
+        else
+        {
+            return response()->json([
+                'status' => 'false',
+                'msg' => 'error'
+            ]) ;
+        }
+    }
+
+    //-------------- Add New Subscription ---------------\\
+    public function addSubscribe(Request $request)
+    {
+        $order =  Order::create([
+            'customer_id'   => $request->customer_id,
+            'course_id'     => $request->course_id,
+            'price'         => $request->price,
+            'status'        => 1,
+        ]);
+
+        if($order)
+        {
+            return response()->json([
+                'status' => 'true',
+                'msg' => 'success'
+            ]) ;
+        }
+        else
+        {
+            return response()->json([
+                'status' => 'false',
+                'msg' => 'error'
+            ]) ;
+        }
+    }
 
 }
