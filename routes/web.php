@@ -108,7 +108,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         |--------------------------------------------------------------------------
         */
         // Route::resource('/qrcode', 'Admin\qrCode\QrCodeController'); 
-        Route::post('/disableqrcode', 'Admin\qrCode\QrCodeController@disable')->name('qrcode-disable');
+        // Route::post('/disableqrcode', 'Admin\qrCode\QrCodeController@disable')->name('qrcode-disable');
         // Route::post('/qrcode/{id}', 'Admin\qrCode\QrCodeController@delete')->name('delete-qrcode');
         // Route::get('/qrcode/requestes', 'Admin\qrCode\QrCodeController@requestes')->name('qrcode-requestes');
         // Route::post('/qrcoderequestaccept', 'Admin\qrCode\QrCodeController@accept')->name('qrcode-request-accept');
