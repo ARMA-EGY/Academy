@@ -46,6 +46,7 @@
 					<li><a href="{{route('welcome')}}">Home</a></li>
 					<li><a href="{{route('about')}}">About</a></li>
 					<li><a href="{{route('courses')}}">Courses</a></li>
+					<li><a href="{{route('qrcode')}}">Qr Code</a></li>
 					<li><a href="{{route('contact')}}">Contact</a></li>
 					@if(Auth::check())
 						<li><a href="{{route('userprofile')}}">{{Auth::user()->name}}</a></li>

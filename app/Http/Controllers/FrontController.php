@@ -16,7 +16,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\ReceiverEmail;
 use App\Mail\ContactUs;
-
+use App\Models\Qrcode;
 use Mail; 
 use Carbon\Carbon;
 use LaravelLocalization;
@@ -154,5 +154,15 @@ class FrontController extends Controller
         }
 
     }
+    //-------------- Courses Page ---------------\\
+    public function qrCode()
+    {         
+        $qr_codes= QrCode::orderBy('id','desc')->get();
+
+        return view('front.qr_code', [
+            'qr_codes'    => $qr_codes,
+        ]); 
+    }
+    
 
 }

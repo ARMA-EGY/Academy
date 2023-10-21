@@ -97,7 +97,31 @@
                         </ul>
                       </div>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#navbar-qrcode" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-qrcode">
+                      <i class="fas fa-clipboard"></i>
+                      <span class="nav-link-text">qrcode</span>
+                    </a>
+                    <div class="collapse" id="navbar-qrcode" style="">
+                      <ul class="nav nav-sm flex-column">
 
+                        <li class="nav-item">
+                          <a href="{{ route('qrcode.create')}}" class="nav-link nav-link-sub {{request()->routeIs('qrcode.create') ? 'active' : '' }}">
+                            <i class="far fa-dot-circle"></i>
+                            <span class="sidenav-normal">Add New qrcode</span>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="{{ route('qrcode.index')}}" class="nav-link nav-link-sub {{request()->routeIs('qrcode.index') ? 'active' : '' }}">
+                            <i class="far fa-dot-circle"></i>
+                            <span class="sidenav-normal">qrcode List</span>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </div>
+                </li>
                   <li class="nav-item">
                       <a class="nav-link {{request()->routeIs('faq.index') ? 'active' : '' }}" href="{{route('faq.index')}}">
                           <i class="fas fa-comment-dots"></i>

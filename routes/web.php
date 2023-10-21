@@ -25,6 +25,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 {
     Route::get('/', 'FrontController@index')->name('welcome');
     Route::get('/about', 'FrontController@about')->name('about');
+    Route::get('/qr_code', 'FrontController@qrCode')->name('qrcode');
     Route::get('/courses', 'FrontController@courses')->name('courses');
     Route::get('/course/{id}', 'FrontController@courseDetails')->name('course.details');
     Route::get('/contact', 'FrontController@contact')->name('contact');
@@ -96,7 +97,26 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         Route::get('/course/requestes', 'Admin\Courses\CoursesController@requestes')->name('course-requestes');
         Route::post('/courserequestaccept', 'Admin\Courses\CoursesController@accept')->name('course-request-accept');
         Route::post('/topMonth', 'Admin\Courses\CoursesController@topMonth')->name('course-top');
-
+        
+         /*
+        |--------------------------------------------------------------------------
+        | qrcodes
+        |--------------------------------------------------------------------------
+        */
+        // Route::resource('/qrcode', 'Admin\qrCode\QrCodeController'); 
+        Route::post('/disableqrcode', 'Admin\qrCode\QrCodeController@disable')->name('qrcode-disable');
+        // Route::post('/qrcode/{id}', 'Admin\qrCode\QrCodeController@delete')->name('delete-qrcode');
+        // Route::get('/qrcode/requestes', 'Admin\qrCode\QrCodeController@requestes')->name('qrcode-requestes');
+        // Route::post('/qrcoderequestaccept', 'Admin\qrCode\QrCodeController@accept')->name('qrcode-request-accept');
+        Route::get('/qrcode', 'Admin\qrCode\QrCodeController@index')->name('qrcode.index');
+        Route::get('/qrcode/create', 'Admin\qrCode\QrCodeController@create')->name('qrcode.create');
+        Route::post('/qrcode', 'Admin\qrCode\QrCodeController@store')->name('qrcode.store');
+        Route::get('/qrcode/{qrcode}/edit', 'Admin\qrCode\QrCodeController@edit')->name('qrcode.edit');
+        Route::put('/qrcode/{qrcode}', 'Admin\qrCode\QrCodeController@update')->name('qrcode.update');
+        Route::get('/qrcode/{qrcode}', 'Admin\qrCode\QrCodeController@delete')->name('qrcode.delete');
+        // Route::post('/topMonth', 'Admin\qrCode\QrCodeController@topMonth')->name('qrcode-top');
+        
+        
         /*
         |--------------------------------------------------------------------------
         | Courses Category
