@@ -22,7 +22,7 @@
                 </ol>
               </nav>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
                     <div class="card card-defualt">
                         <div class="card-header"><i class="fa fa-info-circle"></i> Qr code information </div>
                         <div class="card-body">
-                                
+
                             <!--=================  Name  =================-->
                             <div class="row">
                                 <div class="form-group col-md-6 mb-2 text-left">
@@ -57,8 +57,8 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         </div>
                                     @enderror
-                                </div> 
-                            </div> 
+                                </div>
+                            </div>
                             <hr class="my-2">
 
                             <div class="row">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <div class="col-xl-4">
@@ -84,13 +84,13 @@
                         <div class="card-body px-3">
                             <div class="avatar-preview" style="background-image: url({{ isset($item) ?  asset($item->image)  : asset('images/no-image.png') }})"></div>
                             <div class="my-2 text-left">
-                              <small> {!! __('master.IMAGE-INFO') !!} </small> 
+                              <small> {!! __('master.IMAGE-INFO') !!} </small>
                             </div>
-                            <input class="btn-info form-control form-control-sm" {{ isset($item) ? '' :'required' }}  type="file" accept="image/*" id="avatar" name="image" multiple="false" />
+                            <input class="btn-info form-control form-control-sm" {{ isset($item) ? '' :'required' }}  type="file" name="recorde" multiple="false" />
                         </div>
                     </div>
 
-                </div> 
+                </div>
 
             </div>
 
@@ -107,7 +107,7 @@
       <footer class="footer pt-0">
       </footer>
     </div>
- 
+
 
 @endsection
 
@@ -119,25 +119,25 @@
 
 
   <script>
-        $(document).ready(function() 
+        $(document).ready(function()
         {
             $('.select2').select2();
         });
 
-        function readURL(input) 
+        function readURL(input)
         {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                
-                reader.onload = function (e) 
+
+                reader.onload = function (e)
                 {
                     $('.avatar-preview').css('background-image','url('+e.target.result+')');
                 };
-                
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        
+
         $("#avatar").change(function()
         {
             readURL(this);

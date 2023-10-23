@@ -30,27 +30,21 @@ class QrCodeController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
+        if ($request->hasFile('recorde')) {
+            $recordedFile = $request->file('recorde');
+            $input['filename'] = time() . '.' . $recordedFile->getClientOriginalExtension();
 
-        if($request->hasfile('image'))
-        {
-            $image = $request->file('image');
-            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-        
-            $destinationPath = public_path('images/qrcode');
-            ini_set('memory_limit', '2048M');
-            $img = Image::make($image->getRealPath());
-            $img->resize(800, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$input['imagename']);
+            $destinationPath = public_path('recordings'); // Change the path to your desired directory
+            $recordedFile->move($destinationPath, $input['filename']);
 
-            $courseImage = 'images/qrcode/'.$input['imagename'];
+            $recordedFilePath = 'recordings/' . $input['filename'];
         }
         $QrCode =  QrCode::create([
             'title'          => $request->title,
             'description'   => $request->description,
-            'image'         => $courseImage,
+            'image'         => $recordedFilePath,
         ]);
-        
+
         $request->session()->flash('success', 'qrcode Was Added successfully');
         return redirect(route('qrcode.index'));
     }
@@ -76,7 +70,7 @@ class QrCodeController extends Controller
 
             $image = $request->file('image');
             $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-        
+
             $destinationPath = public_path('/images/qrcode');
             ini_set('memory_limit', '2048M');
             $img = Image::make($image->getRealPath());
@@ -88,16 +82,16 @@ class QrCodeController extends Controller
 
             $data['image'] = $courseImage;
         }
-            
+
 
         $qrcode->update($data);
 
 		session()->flash('success', 'qrcode was updated successfully');
-		
+
 		return redirect(route('qrcode.index'));
     }
     //-------------- Disable Data  ---------------\\
-    
+
     public function delete(qrcode $qrcode)
     {
         $item = QrCode::where('id', $qrcode->id)->first();

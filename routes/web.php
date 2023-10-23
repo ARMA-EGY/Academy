@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Front Routes 
+| Front Routes
 |--------------------------------------------------------------------------
 */
 
@@ -26,11 +26,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
     Route::get('/', 'FrontController@index')->name('welcome');
     Route::get('/about', 'FrontController@about')->name('about');
     Route::get('/qr_code', 'FrontController@qrCode')->name('qrcode');
+    Route::get('/qr_code/{id}', 'FrontController@qrCodeDetails')->name('qrcode.details');
     Route::get('/courses', 'FrontController@courses')->name('courses');
     Route::get('/course/{id}', 'FrontController@courseDetails')->name('course.details');
     Route::get('/contact', 'FrontController@contact')->name('contact');
     Route::get('/signin', 'FrontController@signin')->name('signin');
-    
+
     Route::post('/message', 'FrontController@message')->name('message');
     Route::post('/booking', 'FrontController@booking')->name('booking');
     Route::post('/addSubscribe', 'FrontController@addSubscribe')->name('addSubscribe');
@@ -48,43 +49,43 @@ Auth::routes();
 
 /*
 |--------------------------------------------------------------------------
-| Roles Routes 
+| Roles Routes
 |--------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function () 
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'auth','localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], function ()
 {
 
     Route::get('/userprofile', 'FrontController@profile')->name('userprofile');
     Route::post('/edituserprofile', 'FrontController@editprofile')->name('editprofile');
     /*
     |--------------------------------------------------------------------------
-    | Admin Routes 
+    | Admin Routes
     |--------------------------------------------------------------------------
     */
 
-    Route::group(['prefix' => 'admin','middleware' => [ 'admin' ]], function () 
+    Route::group(['prefix' => 'admin','middleware' => [ 'admin' ]], function ()
     {
         Route::get('/home', 'MasterController@index')->name('home');
         Route::get('/profile', 'MasterController@profile')->name('profile');
-        
+
         Route::get('/calendar', 'MasterController@calendar')->name('calendar');
-        
+
         /*
         |--------------------------------------------------------------------------
         | Staff
         |--------------------------------------------------------------------------
-        */        
-        Route::resource('/staff', 'Admin\Staff\StaffController'); 
+        */
+        Route::resource('/staff', 'Admin\Staff\StaffController');
         Route::get('/staff/{id}/profile', 'Admin\Staff\StaffController@profile')->name('staff.profile');
         Route::post('/disablestaff', 'Admin\Staff\StaffController@disable')->name('staff-disable');
-        
+
         /*
         |--------------------------------------------------------------------------
         | Customers
         |--------------------------------------------------------------------------
-        */        
-        Route::resource('/customer', 'Admin\Customer\CustomerController'); 
+        */
+        Route::resource('/customer', 'Admin\Customer\CustomerController');
         Route::get('/customer/{id}/profile', 'Admin\Customer\CustomerController@profile')->name('customer.profile');
         Route::post('/disablecustomer', 'Admin\Customer\CustomerController@disable')->name('customer.disable');
 
@@ -94,7 +95,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         | Courses
         |--------------------------------------------------------------------------
         */
-        Route::resource('/courses', 'Admin\Courses\CoursesController'); 
+        Route::resource('/courses', 'Admin\Courses\CoursesController');
         Route::post('/disablecourse', 'Admin\Courses\CoursesController@disable')->name('course-disable');
         Route::post('/delete-course', 'Admin\Courses\CoursesController@delete')->name('delete-courses');
         Route::get('/course/requestes', 'Admin\Courses\CoursesController@requestes')->name('course-requestes');
@@ -107,7 +108,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         | qrcodes
         |--------------------------------------------------------------------------
         */
-        // Route::resource('/qrcode', 'Admin\qrCode\QrCodeController'); 
+        // Route::resource('/qrcode', 'Admin\qrCode\QrCodeController');
         // Route::post('/disableqrcode', 'Admin\qrCode\QrCodeController@disable')->name('qrcode-disable');
         // Route::post('/qrcode/{id}', 'Admin\qrCode\QrCodeController@delete')->name('delete-qrcode');
         // Route::get('/qrcode/requestes', 'Admin\qrCode\QrCodeController@requestes')->name('qrcode-requestes');
@@ -119,8 +120,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         Route::put('/qrcode/{qrcode}', 'Admin\qrCode\QrCodeController@update')->name('qrcode.update');
         Route::get('/qrcode/{qrcode}', 'Admin\qrCode\QrCodeController@delete')->name('qrcode.delete');
         // Route::post('/topMonth', 'Admin\qrCode\QrCodeController@topMonth')->name('qrcode-top');
-        
-        
+
+
 
         /*
         |--------------------------------------------------------------------------
@@ -138,7 +139,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         | Team
         |--------------------------------------------------------------------------
         */
-        Route::resource('/team', 'Admin\Team\TeamController'); 
+        Route::resource('/team', 'Admin\Team\TeamController');
         Route::post('/removeteam', 'Admin\Team\TeamController@removeteam')->name('remove-team');
 
 
@@ -147,7 +148,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         | Achievements
         |--------------------------------------------------------------------------
         */
-        Route::resource('/achievements', 'Admin\Achievement\AchievementController'); 
+        Route::resource('/achievements', 'Admin\Achievement\AchievementController');
         Route::post('/disableAchievement', 'Admin\Achievement\AchievementController@disable')->name('achievements.disable');
 
 
@@ -156,29 +157,29 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
         | FAQ
         |--------------------------------------------------------------------------
         */
-        Route::resource('/faq', 'Admin\Faq\FaqController'); 
+        Route::resource('/faq', 'Admin\Faq\FaqController');
         Route::post('/removeFaq', 'Admin\Faq\FaqController@remove')->name('faq.remove');
 
-        
+
         /*
         |--------------------------------------------------------------------------
         | Orders
         |--------------------------------------------------------------------------
         */
-        Route::resource('/order', 'Admin\Order\OrderController'); 
+        Route::resource('/order', 'Admin\Order\OrderController');
 
         /*
         |--------------------------------------------------------------------------
         | Others
         |--------------------------------------------------------------------------
-        */ 
-        Route::resource('/permissions', 'Admin\Permissions\PermissionsController'); 
+        */
+        Route::resource('/permissions', 'Admin\Permissions\PermissionsController');
         Route::get('/logo', 'MasterController@logo')->name('admin-logo');
         Route::get('/setting', 'MasterController@setting')->name('admin-setting');
         Route::get('/messages', 'MasterController@messages')->name('messages');
         Route::get('/subscribers', 'MasterController@subscribers')->name('subscribers');
         Route::get('/socialmedia', 'MasterController@socialmedia')->name('socialmedia');
-        
+
         Route::post('/social', 'MasterController@social')->name('social');
         Route::post('/getreceiveremail', 'MasterController@getreceiveremail')->name('getreceiveremail');
         Route::post('/receiveremail', 'MasterController@receiveremail')->name('receiveremail');
@@ -190,7 +191,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
 
         Route::post('/getslidertext', 'Admin\Slider\SliderController@getslidertext')->name('getslidertext');
         Route::post('/updateslidertext', 'Admin\Slider\SliderController@updateslidertext')->name('updateslidertext');
-        
+
     });
 
 
@@ -226,7 +227,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
     | Notes
     |--------------------------------------------------------------------------
     */
-        
+
     Route::post('/createnote', 'MasterController@createnote')->name('create-note');
     Route::post('/addnote', 'MasterController@addnote')->name('add-note');
     Route::post('/getnote', 'MasterController@getnote')->name('get-note');
@@ -239,7 +240,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
     | Calendar
     |--------------------------------------------------------------------------
     */
-        
+
     Route::get('/getevent/{user}', 'MasterController@getevent')->name('get-event');
     Route::post('/addevent', 'MasterController@addevent')->name('add-event');
     Route::post('/updateevent', 'MasterController@updateevent')->name('update-event');
@@ -261,7 +262,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'a
     Route::get('/clearcache', function () {
         Artisan::call('cache:clear');
     })->name('clearcache');
-    
+
     Route::get('/clearconfig', function () {
         Artisan::call('config:clear');
     })->name('clearconfig');

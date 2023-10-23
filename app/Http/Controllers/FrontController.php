@@ -18,7 +18,7 @@ use App\Models\Message;
 use App\Models\ReceiverEmail;
 use App\Mail\ContactUs;
 use App\Models\Qrcode;
-use Mail; 
+use Mail;
 use Carbon\Carbon;
 use LaravelLocalization;
 
@@ -44,32 +44,32 @@ class FrontController extends Controller
             'faqs'          => $faqs,
         ]);
     }
-    
+
     //-------------- About Page ---------------\\
     public function about()
-    {         
+    {
 		$achievements  = Achievement::orderBy('id','asc')->where('disable', 0)->get();
         $teams         = Team::orderBy('id','desc')->get();
 
         return view('front.about', [
             'achievements'    => $achievements,
             'teams'           => $teams,
-        ]); 
+        ]);
     }
-    
+
     //-------------- Courses Page ---------------\\
     public function courses()
-    {         
+    {
         $courses       = Courses::where('disable', 0)->orderBy('id','desc')->get();
 
         return view('front.courses', [
             'courses'    => $courses,
-        ]); 
+        ]);
     }
-    
+
     //-------------- Course Details Page ---------------\\
     public function courseDetails($id)
-    {         
+    {
         $item       = Courses::where('disable', 0)->where('id',$id)->first();
         if(!$item)
         {
@@ -97,26 +97,26 @@ class FrontController extends Controller
             'item'          => $item,
             'endofurl'      => $endofurl,
             'subscribed'    => $subscribed,
-        ]); 
+        ]);
     }
-    
+
     //-------------- Contact Us Page ---------------\\
     public function contact()
-    { 
+    {
         return view('front.contact', [
-        ]);      
+        ]);
     }
-    
+
     //-------------- Sign-in Page ---------------\\
     public function signin()
-    { 
+    {
         return view('front.signin', [
-        ]);      
+        ]);
     }
 
     //-------------- Profile Page ---------------\\
     public function profile()
-    { 
+    {
         $user= auth()->user();
         return view('front.profile', [
             'user'=> $user,
@@ -167,16 +167,25 @@ class FrontController extends Controller
         }
 
     }
-    //-------------- Courses Page ---------------\\
+    //-------------- qrCode Page ---------------\\
     public function qrCode()
-    {         
+    {
         $qr_codes= QrCode::orderBy('id','desc')->get();
 
         return view('front.qr_code', [
             'qr_codes'    => $qr_codes,
-        ]); 
+        ]);
     }
-    
+    public function qrCodeDetails($id)
+    {
+        $qr_codes= QrCode::where('id', $id)->orderBy('id','desc')->first();
+
+        return view('front.qr_codeDetails', [
+            'qr_codes'    => $qr_codes,
+        ]);
+    }
+
+
 
     //-------------- Edit User Info ---------------\\
     public function editprofile(Request $request)

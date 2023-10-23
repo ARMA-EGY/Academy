@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('style')
-    
+
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 
 @endsection
@@ -28,7 +28,7 @@
               <a href="{{ route('qrcode.create')}}" class="btn btn-sm btn-neutral"><i class="fa fa-plus"></i> {{__('master.ADD-NEW-COURSE')}}</a>
             </div>
 
-            @if(session()->has('success'))	
+            @if(session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show m-auto" role="alert">
                     {{ session()->get('success') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -76,7 +76,7 @@
                     <td>{{$item->id}}</td>
                     <td><strong> {{  $item->title }} </strong></td>
                     <td><strong> {{ $item->description }} </strong></td>
-                    
+
                     <td>
                       <a data-toggle="tooltip" data-placement="top" href="{{ route('qrcode.delete', $item->id)}}" class="btn btn-danger btn-sm mx-1 px-3"> <i class="fa fa-trash"></i> </a>
                       <a data-toggle="tooltip" data-placement="top" title="{{__('master.EDIT')}}" href="{{ route('qrcode.edit', $item->id)}}" class="btn btn-secondary btn-sm mx-1 px-3"> <i class="fa fa-edit"></i> </a>
@@ -84,12 +84,12 @@
                   </tr>
 
                   @endforeach
-                 
+
                 </tbody>
               </table>
             </div>
 
-            @else 
+            @else
                 <p class="text-center"> No Data Available </p>
             @endif
 
@@ -104,14 +104,14 @@
       <footer class="footer pt-0">
       </footer>
     </div>
-  
+
 
 @endsection
 
 
 
 @section('script')
-   
+
 
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
@@ -124,5 +124,5 @@ $('#example').DataTable( {
   } );
 
 </script>
-    
+
 @endsection

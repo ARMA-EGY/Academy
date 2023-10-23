@@ -8,7 +8,7 @@
     margin: 0;
     padding: 0;
 }
- 
+
 .card{
     background-color: hsl(0, 0%, 100%);
     padding: 18px;
@@ -35,22 +35,24 @@
 @endsection
 
 @section('content')
-    
+
 	<!-- Start of Achievements section
 		============================================= -->
 	<section class="about__achievements">
 		<div class="">
-			 
+
 
 			<div class="about__achievements-right">
                 <div class="container">
                     <div class="container courses__container">
                         @foreach ($qr_codes as $qr_code)
 
-                        
+
                             <div class="col-md-3 col-sm-6 col-12">
                                 <div class="card">
-                                    <img class="img-fluid" height="200" src="{{asset($qr_code->image)}}" alt="">
+                                    <img class="img-fluid" height="200" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{asset($qr_code->image)}}&choe=UTF-8" title="Link to {{asset($qr_code->image)}}" alt="">
+
+
                                     <div class="text">
                                         <h2>{{$qr_code->title}}</h2>
                                         <p>{{$qr_code->description}}</p>
@@ -63,7 +65,7 @@
 			</div>
 		</div>
 	</section>
- 
+
 @endsection
 
 
