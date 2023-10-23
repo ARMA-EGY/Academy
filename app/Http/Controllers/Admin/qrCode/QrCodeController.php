@@ -48,14 +48,14 @@ class QrCodeController extends Controller
         $request->session()->flash('success', 'qrcode Was Added successfully');
         return redirect(route('qrcode.index'));
     }
-    public function edit(qrcode $qrcode)
+    public function edit(QrCode $qrcode)
     {
         $user = auth()->user();
-		return view('admin.qrcode.create', [
+		return view('admin.qrCode.create', [
             'item' => $qrcode,
         ]);
     }
-    public function update(Request $request, qrcode $qrcode)
+    public function update(Request $request, QrCode $qrcode)
     {
         $user = auth()->user();
         $data = $request->only(['title', 'description']);
@@ -92,7 +92,7 @@ class QrCodeController extends Controller
     }
     //-------------- Disable Data  ---------------\\
 
-    public function delete(qrcode $qrcode)
+    public function delete(QrCode $qrcode)
     {
         $item = QrCode::where('id', $qrcode->id)->first();
         $item->delete();

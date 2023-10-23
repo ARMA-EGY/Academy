@@ -18,14 +18,21 @@ class Disable
     public function handle($request, Closure $next)
     {
         $user = User::where('email', $request->email)->first();
-        $isDisabled = $user['disable'];
-
-        if($isDisabled == 1)
+        if($user)
         {
-            session()->flash('fail', 'This User is Disabled');
-            return redirect(route('login'));
+            $isDisabled = $user['disable'];
+
+            if($isDisabled == 1)
+            {
+                session()->flash('fail', 'This User is Disabled');
+                return redirect(route('login'));
+            }
+            
+            return $next($request);
         }
-        
-        return $next($request);
+        else
+        {
+            return $next($request);
+        }
     }
 }

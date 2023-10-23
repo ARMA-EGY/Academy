@@ -17,7 +17,7 @@ use App\Models\Order;
 use App\Models\Message;
 use App\Models\ReceiverEmail;
 use App\Mail\ContactUs;
-use App\Models\Qrcode;
+use App\Models\QrCode;
 use Mail;
 use Carbon\Carbon;
 use LaravelLocalization;

@@ -121,7 +121,7 @@
                     },
                     purchase_units: [{
                         amount: {
-                            value: '{{$item->price / $setting->dollar}}'
+                            value: '{{round($item->price / $setting->dollar, 2)}}'
                         }
                     }]
                 });

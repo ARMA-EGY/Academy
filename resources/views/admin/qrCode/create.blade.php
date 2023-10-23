@@ -86,7 +86,7 @@
                             <div class="my-2 text-left">
                               <small> {!! __('master.IMAGE-INFO') !!} </small>
                             </div>
-                            <input class="btn-info form-control form-control-sm" {{ isset($item) ? '' :'required' }}  type="file" name="recorde" multiple="false" />
+                            <input class="btn-info form-control form-control-sm" {{ isset($item) ? '' :'required' }}  type="file" name="recorde" />
                         </div>
                     </div>
 
