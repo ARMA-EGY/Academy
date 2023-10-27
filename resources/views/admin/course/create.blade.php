@@ -154,7 +154,7 @@
                             <div class="my-2 text-left">
                               <small> {!! __('master.IMAGE-INFO') !!} </small> 
                             </div>
-                            <input class="btn-info form-control form-control-sm" type="file" accept="image/*" id="avatar" name="image" multiple="false" />
+                            <input class="btn-info form-control form-control-sm" type="file" accept="image/*" id="avatar" name="image" @if (isset($item)) @else required @endif />
                         </div>
                     </div>
 
@@ -264,7 +264,7 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title">Upload</h5>
+                <h5 class="modal-title">Uploading</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -274,18 +274,18 @@
                     
                     <div class="">
     
-                        <div class="form-group col-md-12">
-                        <label for="" class="font-weight-bold"> Upload course : </label>
-                        </div>
+                        <!--<div class="form-group col-md-12">-->
+                        <!--<label for="" class="font-weight-bold"> Uploading : </label>-->
+                        <!--</div>-->
                         
-                        {{-- <div class="bararea m-2">
+                        <div class="bararea m-2">
                             <div class="bar"></div>
-                        </div> --}}
-                        <div class="form-group col-md-12 text-center">
-                            <div class="spinner-border" role="status">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                          </div>
+                        </div>
+                        <!--<div class="form-group col-md-12 text-center">-->
+                        <!--    <div class="spinner-border" role="status">-->
+                        <!--      <span class="sr-only">Loading...</span>-->
+                        <!--    </div>-->
+                        <!--</div>-->
     
                         <div class="percent"></div>
                         <div class="status"></div> 
@@ -372,28 +372,37 @@
         {
             $(document).ready(function()
             {
-                // var bar     = $('.bar');
-                // var percent = $('.percent');
+                var bar     = $('.bar');
+                var percent = $('.percent');
                 var status  = $('.status');
 
                 $('.upload_form').ajaxForm({
                     beforeSend: function() 
                     {
-                        // var percentVal = '0%';
-                        // bar.width(percentVal)
-                        // percent.html(percentVal);
+                        var percentVal = '0%';
+                        bar.width(percentVal)
+                        percent.html(percentVal);
                         $('#upload_modal').modal('show');
                     },
-                    // uploadProgress: function(event, position, total, percentComplete) 
-                    // {
-                    //     var percentVal = percentComplete + '%';
-                    //     bar.width(percentVal)
-                    //     percent.html(percentVal);
-                    // },
+                    uploadProgress: function(event, position, total, percentComplete) 
+                    {
+                        var percentVal = percentComplete + '%';
+                        bar.width(percentVal)
+                        percent.html(percentVal);
+                    },
                     success : function(response)
                     {
                         $('#upload_modal').modal('hide');
-                        window.location.href = "{{route('courses.index')}}";
+                        $('.modal').modal('hide');
+                        Swal.fire(
+                                "Done",
+                                "Course Updated Successfully.",
+                                'success'
+                                )
+                        window.setTimeout(function() 
+                        {
+                            window.location.href = "{{route('courses.index')}}";
+                        }, 3000);
                     }
                 });
             }); 

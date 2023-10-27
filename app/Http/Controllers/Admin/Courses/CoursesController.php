@@ -173,6 +173,25 @@ class CoursesController extends Controller
             $data['file'] = $path;
         }
 
+        if ($request->hasFile('video_file')) 
+        {
+            for ($i = 0; $i < count($request->video_file); $i++) 
+            {
+                $file = $request->file('video_file')[$i];
+                $file_name = time().'-'.$file->getClientOriginalName();
+    
+                $destinationPath = base_path().env('PUBLIC_PATH');
+                $path2 = 'uploads/'.$file_name;
+                $file->move(base_path().'/'.env('PUBLIC_PATH').'uploads/', $file_name);
+
+                $videos = Video::create([
+                    'course_id' => $course->id,
+                    'name'      => $request->video_name[$i],
+                    'path'      => $path2,
+                ]);
+            }
+        }
+
         $course->update($data);
 
 		// session()->flash('success', 'Course was updated successfully');
